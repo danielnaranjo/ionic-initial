@@ -1,6 +1,13 @@
-<ion-view title="Friends">
+<ion-view title="Friends" ng-controller="FriendsCtrl">
+
 	<ion-content class="has-header">
-		<div id="map" data-tap-disabled="true" style="width: 100%;height: 100%;"></div>
+
+		<div id="search-box" class="bar bar-header item-input-inset">
+			<a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>
+		</div>
+
+		<!-- <div id="map" data-tap-disabled="true" style="width:100%;height: 100%;"></div> -->
+		<img ng-src="http://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=500x600&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Ccolor:red%7Clabel:C%7C40.718217,-73.998284&sensor=false" alt="" style="width:100%;height: 100%;">
 	</ion-content>
-	<a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>
+	
 </ion-view>
