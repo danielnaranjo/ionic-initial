@@ -1,6 +1,9 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, Bares) {
+.controller('DashCtrl', function($scope, Bares, $ionicPopover) {
+    $ionicPopover.fromTemplateUrl('templates/popover.html', function(popover) {
+      $scope.popover = popover;
+    });
   	$scope.bares = Bares.all();
 })
 
