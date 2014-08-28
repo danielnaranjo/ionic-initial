@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, Bares) {
-  $scope.bares = Bares.all();
+  	$scope.bares = Bares.all();
 })
 
 .controller('FriendsCtrl', function($scope, $ionicLoading, $compile) {
@@ -85,5 +85,5 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HoyCtrl', function($scope) {
-	
+
 });

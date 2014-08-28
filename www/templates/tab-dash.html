@@ -2,8 +2,14 @@
 
 	<ion-header-bar id="header" title="'Title'" type="bar-primary" hides-header></ion-header-bar>
 	
-		<ion-content>
+	<ion-content>
 
+		<ion-refresher on-refresh="doRefresh()"
+			pulling-text="Pull to refresh..."
+			refreshing-text="Refreshing!"
+			refreshing-icon="ion-loading-c">        
+      	</ion-refresher>
+      	
 		<div id="search-box" class="bar bar-header item-input-inset">
 			<div class="item-input-wrapper">
 				<i class="icon ion-ios7-search placeholder-icon"></i>
