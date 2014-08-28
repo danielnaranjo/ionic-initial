@@ -61,10 +61,6 @@ angular.module('starter.controllers', [])
       };
 })
 
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-})
-
 .controller('FavoritosCtrl', function($scope, Bares) {
   $scope.bares = Bares.all();
 })
@@ -89,4 +85,5 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HoyCtrl', function($scope) {
+	
 });
