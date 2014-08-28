@@ -1,0 +1,18 @@
+<ion-view title="Favoritos">
+  <ion-content class="has-header">
+      <div id="search-box" class="bar bar-header item-input-inset">
+        <div class="item-input-wrapper">
+          <i class="icon ion-ios7-search placeholder-icon"></i>
+          <input type="search" placeholder="Search" ng-model="query">
+          <i class="clear-search icon ion-ios7-close-empty"></i>
+        </div>
+      </div>
+    <ion-list>
+      <ion-item ng-repeat="bar in bares | filter:query" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" >
+      	<img ng-src="{{bar.logo}}">
+      	<h3>{{bar.name}}</h3>
+        <p>Ranking {{bar.stars}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
