@@ -22,7 +22,7 @@
       	</ion-refresher>
       	
 		<ion-list>
-			<ion-item ng-repeat="bar in bares | filter:query | filter:query as results" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" >
+			<ion-item ng-repeat="bar in bares | filter:query" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" >
 				<img ng-src="{{bar.logo}}">
 				<h3>{{bar.name}}</h3>
 				<p>
@@ -35,9 +35,12 @@
 				<p class="right">{{bar.gps.lat}} {{bar.gps.lon}}</p>
 				<div data-ng-repeat="i in bar.stars">do something</div>
 			</ion-item>
+
+			<!-- Sin resultados -->
 			<ion-item class="animate-repeat" ng-if="results.length == 0">
-				<strong>No results found...</strong>
+				<strong>Lo sentimos, no hemos encontrado ese bar.</strong>
 			</ion-item>
+			<!-- Sin resultados -->
 		</ion-list>
 
 	</ion-content>
