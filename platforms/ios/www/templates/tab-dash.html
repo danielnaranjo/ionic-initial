@@ -1,7 +1,18 @@
-<ion-view title="Bar.es">
-
-	<ion-header-bar id="header" title="'Title'" type="bar-primary" hides-header></ion-header-bar>
+<ion-view title=''>
 	
+	<ion-nav-buttons>
+		<div class="bar-header item-input-inset">
+			<label class="item-input-wrapper">
+				<i class="icon ion-ios7-search placeholder-icon"></i>
+				<input type="search" placeholder="Search" ng-model="query" size="80">
+			</label>
+			<button 
+				menu-toggle="right" 
+				class="button button-icon icon ion-navicon">
+			</button>
+		</div>
+   </ion-nav-buttons>
+
 	<ion-content>
 
 		<ion-refresher on-refresh="doRefresh()"
@@ -10,21 +21,23 @@
 			refreshing-icon="ion-loading-c">        
       	</ion-refresher>
       	
-		<div id="search-box" class="bar bar-header item-input-inset">
-			<div class="item-input-wrapper">
-				<i class="icon ion-ios7-search placeholder-icon"></i>
-				<input type="search" placeholder="Search" ng-model="query">
-				<i class="clear-search icon ion-ios7-close-empty"></i>
-			</div>
-		</div>
-
 		<ion-list>
 			<ion-item ng-repeat="bar in bares | filter:query" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" >
 				<img ng-src="{{bar.logo}}">
 				<h3>{{bar.name}}</h3>
-				<p>Ranking {{bar.stars}}</p>
+				<p>
+					<i class="icon ion-star" data-ng-repeat="i in bar.stars|ranking:bar.stars"></i>
+					<i class="icon ion-heart" ng-show="bar.favorite"></i>
+					<i class="icon ion-pizza" ng-show="bar.cocina"></i>
+					<i class="icon ion-wifi" ng-show="bar.wifi"></i>
+					<i class="icon ion-model-s" ng-show="bar.parking"></i>
+				</p>
+				<p class="right">{{bar.gps.lat}} {{bar.gps.lon}}</p>
 			</ion-item>
+
 		</ion-list>
 
 	</ion-content>
 </ion-view>
+
+

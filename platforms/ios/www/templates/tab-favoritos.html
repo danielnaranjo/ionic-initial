@@ -3,7 +3,7 @@
 	<ion-content class="has-header">
 
 		<ion-list>
-			<ion-item ng-repeat="bar in bares" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" >
+			<ion-item ng-repeat="bar in bares" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" ng-show="bar.favorite">
 				<img ng-src="{{bar.logo}}">
 				<h3>{{bar.name}}</h3>
 				<p>Ranking {{bar.stars}}</p>

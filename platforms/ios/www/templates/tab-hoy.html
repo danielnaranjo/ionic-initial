@@ -1,6 +1,20 @@
 <ion-view title="Promocion">
-  <ion-content class="has-header padding">
-    <h1>Ajustes</h1>
-    <p>Here's goes more information</p>
-  </ion-content>
+	<ion-content class="has-header padding">
+		<ion-card>
+			<ion-item ng-repeat="bar in bares" href="#/tab/bar/{{bar.id}}" ng-show="bar.promo">
+				<div class="item item-avatar">
+					<img ng-src="{{bar.logo}}">
+					<h2>{{bar.name}}</h2>
+					<p>{{bar.address}}</p>
+				</div>
+				<div class="item item-image">
+					<img ng-src="{{bar.imgpromo}}">
+				</div>
+				<a class="item item-icon-left assertive" href="#">
+					<i class="icon ion-beer"></i>
+					{{bar.promo}}
+				</a>
+			</ion-item>
+		</ion-card>
+	</ion-content>
 </ion-view>

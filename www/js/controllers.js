@@ -11,6 +11,10 @@ angular.module('starter.controllers', [])
       //
 })
 
+.controller('HoyCtrl', function($scope, Bares) {
+  $scope.bares = Bares.all();
+})
+
 .controller('FavoritosCtrl', function($scope, Bares) {
   $scope.bares = Bares.all();
 })
@@ -32,8 +36,4 @@ angular.module('starter.controllers', [])
   
   $scope.pushNotification = { checked: true };
   $scope.emailNotification = 'Subscribed';
-})
-
-.controller('HoyCtrl', function($scope, Bares) {
-  $scope.bares = Bares.all();
 });

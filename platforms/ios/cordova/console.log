@@ -47,3 +47,13 @@
 2014-08-26 19:58:44.988 myApp[8313:70b] Resetting plugins due to page load.
 2014-08-26 19:58:46.847 myApp[8313:70b] Finished load of: file:///Users/danielnaranjo/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/7E6622E9-7EAE-4081-8DE5-9A50E9DF82AD/myApp.app/www/index.html#/tab/dash
 Terminating in response to SpringBoard's termination.
+2014-08-28 21:48:48.887 myApp[16066:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 21:48:49.271 myApp[16066:70b] Unlimited access to network resources
+2014-08-28 21:48:51.529 myApp[16066:70b] [CDVTimer][keyboard] 17.535985ms
+2014-08-28 21:48:51.530 myApp[16066:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-28 21:48:51.531 myApp[16066:70b] [CDVTimer][statusbar] 0.612974ms
+2014-08-28 21:48:51.531 myApp[16066:70b] [CDVTimer][TotalPluginStartup] 19.376993ms
+2014-08-28 21:48:52.630 myApp[16066:70b] Resetting plugins due to page load.
+2014-08-28 21:48:54.655 myApp[16066:70b] Finished load of: file:///Users/danielnaranjo/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/7E6622E9-7EAE-4081-8DE5-9A50E9DF82AD/myApp.app/www/index.html#/tab/dash
+2014-08-28 21:50:36.867 myApp[16066:70b] Push Notification Change false
+2014-08-28 21:50:36.894 myApp[16066:70b] THREAD WARNING: ['Console'] took '26.750000' ms. Plugin should use a background thread.
