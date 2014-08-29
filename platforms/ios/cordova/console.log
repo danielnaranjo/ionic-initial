@@ -57,3 +57,12 @@ Terminating in response to SpringBoard's termination.
 2014-08-28 21:48:54.655 myApp[16066:70b] Finished load of: file:///Users/danielnaranjo/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/7E6622E9-7EAE-4081-8DE5-9A50E9DF82AD/myApp.app/www/index.html#/tab/dash
 2014-08-28 21:50:36.867 myApp[16066:70b] Push Notification Change false
 2014-08-28 21:50:36.894 myApp[16066:70b] THREAD WARNING: ['Console'] took '26.750000' ms. Plugin should use a background thread.
+2014-08-29 11:48:39.991 Bar.es[17220:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-29 11:48:40.361 Bar.es[17220:70b] Unlimited access to network resources
+2014-08-29 11:48:40.759 Bar.es[17220:70b] Fix applied for database locations?: YES
+2014-08-29 11:48:45.898 Bar.es[17220:70b] [CDVTimer][keyboard] 0.922024ms
+2014-08-29 11:48:45.899 Bar.es[17220:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-29 11:48:45.899 Bar.es[17220:70b] [CDVTimer][statusbar] 0.460982ms
+2014-08-29 11:48:45.900 Bar.es[17220:70b] [CDVTimer][TotalPluginStartup] 2.287030ms
+2014-08-29 11:48:47.283 Bar.es[17220:70b] Resetting plugins due to page load.
+2014-08-29 11:48:49.539 Bar.es[17220:70b] Finished load of: file:///Users/danielnaranjo/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/7742EB18-95AE-4F8D-A3E7-40FC63ACB9BB/Bar.es.app/www/index.html#/tab/dash
