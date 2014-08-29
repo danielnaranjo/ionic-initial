@@ -1,14 +1,11 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, Bares, $ionicPopover) {
-    $ionicPopover.fromTemplateUrl('templates/popover.html', function(popover) {
-      $scope.popover = popover;
-    });
+.controller('DashCtrl', function($scope, Bares) {
   	$scope.bares = Bares.all();
 })
 
-.controller('FriendsCtrl', function($scope) {
-      //
+.controller('MapaCtrl', function($scope) {
+      // Mapa
 })
 
 .controller('HoyCtrl', function($scope, Bares) {
@@ -25,9 +22,10 @@ angular.module('starter.controllers', [])
 
 .controller('AccountCtrl', function($scope) {
   $scope.settingsList = [
-    { text: "Wireless", checked: true },
-    { text: "GPS", checked: false },
-    { text: "Bluetooth", checked: false }
+    { text: "Fotografias", checked: true },
+    { text: "Localizacion", checked: true },
+    { text: "Facebook", checked: false },
+    { text: "Twitter", checked: false }
   ];
 
   $scope.pushNotificationChange = function() {
