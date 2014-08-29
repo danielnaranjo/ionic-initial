@@ -26,21 +26,21 @@
 				<img ng-src="{{bar.logo}}">
 				<h3>{{bar.name}}</h3>
 				<p>
-					<i class="icon ion-star" data-ng-repeat="i in bar.stars"></i>
+					<i class="icon ion-star" ng-repeat="{{ numbers | limitTo:bar.stars }}"></i>{{ bar.stars | limitTo:bar.stars | number }}
+
 					<i class="icon ion-heart" ng-show="bar.favorite"></i>
 					<i class="icon ion-pizza" ng-show="bar.cocina"></i>
 					<i class="icon ion-wifi" ng-show="bar.wifi"></i>
 					<i class="icon ion-model-s" ng-show="bar.parking"></i>
 				</p>
 				<p class="right">{{bar.gps.lat}} {{bar.gps.lon}}</p>
-				<div data-ng-repeat="i in bar.stars">do something</div>
 			</ion-item>
 
-			<!-- Sin resultados -->
+			<!-- Sin resultados
 			<ion-item class="animate-repeat" ng-if="results.length == 0">
 				<strong>Lo sentimos, no hemos encontrado ese bar.</strong>
 			</ion-item>
-			<!-- Sin resultados -->
+			Sin resultados -->
 		</ion-list>
 
 	</ion-content>
