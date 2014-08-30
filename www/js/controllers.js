@@ -4,6 +4,10 @@ angular.module('starter.controllers', [])
   	$scope.bares = Bares.all();
 })
 
+.controller('DetailCtrl', function($scope, $stateParams, Bares) {
+  $scope.bar = Bares.get($stateParams.barId);
+})
+
 .controller('MapaCtrl', function($scope) {
       // Mapa
 })

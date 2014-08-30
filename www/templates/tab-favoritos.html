@@ -3,11 +3,19 @@
 	<ion-content class="has-header">
 
 		<ion-list>
-			<ion-item ng-repeat="bar in bares" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" ng-show="bar.favorite">
+			<ion-item ng-repeat="bar in bares" type="item-text-wrap" href="#/fav/bar/{{bar.id}}" class="item-thumbnail-left" ng-show="bar.favorite">
 				<img ng-src="{{bar.logo}}">
 				<h3>{{bar.name}}</h3>
-				<p>Ranking {{bar.stars}}</p>
+				<p>
+					<i class="icon ion-star" data-ng-repeat="i in bar.stars|ranking:bar.stars"></i>
+					<i class="icon ion-heart" ng-show="bar.favorite"></i>
+					<i class="icon ion-pizza" ng-show="bar.cocina"></i>
+					<i class="icon ion-wifi" ng-show="bar.wifi"></i>
+					<i class="icon ion-model-s" ng-show="bar.parking"></i>
+				</p>
+				<p class="right">{{bar.gps.lat}},{{bar.gps.lon}}</p>
 			</ion-item>
+
 		</ion-list>
 
 	</ion-content>

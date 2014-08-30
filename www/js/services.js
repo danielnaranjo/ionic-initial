@@ -6,8 +6,8 @@ angular.module('starter.services', [])
 .factory('Bares', function() {
 
   var bares = [
-    { id: 0, name: 'La trucha azul', address: 'Dublin, Ireland', logo:'img/img1.jpg', gps: {lat:-8,lon:-66}, promo: 'Happy hour 17-19hrs', imgpromo: 'img/cerveza.jpg', wifi: true, parking: true, stars:3, favorite: true },
-    { id: 1, name: 'El Corte Ingles', address: 'New York City, NY', logo:'img/img2.jpg', gps: {lat:-8,lon:-66}, promo: 'Ladies nigth', imgpromo: 'img/tequila.jpg', wifi: true, parking: false, stars:5, favorite: false },
+    { id: 0, name: 'La trucha azul', address: 'Dublin, Ireland', logo:'img/img1.jpg', gps: {lat:-8,lon:-66}, promo: '', imgpromo: 'img/cerveza.jpg', wifi: true, parking: true, stars:3, favorite: true },
+    { id: 1, name: 'El Corte Ingles', address: 'New York City, NY', logo:'img/img2.jpg', gps: {lat:-8,lon:-66}, promo: '', imgpromo: 'img/tequila.jpg', wifi: true, parking: false, stars:5, favorite: false },
     { id: 2, name: 'Coyote Ugly', address: 'Manila Philipines', logo:'img/img3.jpg', gps: {lat:-8,lon:-66}, promo: 'After hours', imgpromo: 'img/bacardi.jpg', wifi: true, parking: false, stars:2, favorite: false },
     { id: 3, name: 'Kokomo', address: 'Buenos Aires, Argentina', logo:'img/img4.jpg', gps: {lat:-8,lon:-66}, promo: '', imgpromo: '', wifi: true, parking: false, stars:4, favorite: false },
     { id: 11, name: 'La trucha azul', address: 'Dublin, Ireland', logo:'img/img1.jpg', gps: {lat:-8,lon:-66}, promo: '', imgpromo: '', wifi: true, parking: false, stars:1, favorite: false },

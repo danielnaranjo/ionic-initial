@@ -1,0 +1,11 @@
+<ion-view title="{{bar.name}}" ng-controller="DetailCtrl">
+
+	<ion-content class="has-header">
+		<img ng-src="{{bar.logo}}">
+		<h3>{{bar.name}}</h3>
+		<p>
+			<i class="icon ion-star" data-ng-repeat="i in bar.stars|ranking:bar.stars"></i>
+		</p>
+	</ion-content>
+
+</ion-view>

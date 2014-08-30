@@ -62,12 +62,12 @@ angular.module('starter', [
       }
     })
 
-    .state('tab.detalle', {
+    .state('tab.tab-detalle', {
       url: '/bar/:barId',
       views: {
         'tab-mapa': {
-          templateUrl: 'templates/detalle.html',
-          controller: 'FriendDetailCtrl'
+          templateUrl: 'templates/tab-detalle.html',
+          controller: 'DetailCtrl'
         }
       }
     })
