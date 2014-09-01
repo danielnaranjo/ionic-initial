@@ -82,15 +82,15 @@ angular.module('starter', [
       }
     })
 
-    .state('tab.favoritos-detail', {
-      url: '/fav/:barId',
-      views: {
-        'tab-favoritos': {
-          templateUrl: 'templates/favoritos-detail.html',
-          controller: 'FavoritosDetailCtrl'
-        }
-      }
-    })
+    // .state('tab.favoritos-detail', {
+    //   url: '/fav/:barId',
+    //   views: {
+    //     'tab-favoritos': {
+    //       templateUrl: 'templates/favoritos-detail.html',
+    //       controller: 'FavoritosDetailCtrl'
+    //     }
+    //   }
+    // })
 
     .state('tab.hoy', {
       url: '/hoy',
