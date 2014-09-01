@@ -2,7 +2,6 @@ angular.module('starter.controllers', ['ionic'])
 
 .controller('DashCtrl', function($scope, Bares) {
   	$scope.bares = Bares.all();
-
 })
 
 .controller('DetailCtrl', function($scope, $stateParams, Bares) {
