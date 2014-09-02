@@ -20,7 +20,8 @@ angular.module('starter.filters', [])
 			lat=0,
 			lon=0,
 			metros=0,
-			distancia=[];
+			distancia=[],
+			meters=0;
 		// String a Numero
 		myLat=parseFloat(posicion[0]);
 		myLon=parseFloat(posicion[1]);
@@ -47,17 +48,16 @@ angular.module('starter.filters', [])
 		};
 
 		// distancia
-		var meters;
 		if(navigator.geolocation) {
 			window.navigator.geolocation.getCurrentPosition(function(pos){
 				lat = pos.coords.latitude;
 				lon = pos.coords.longitude;
-				console.log(lat+","+lon+' > '+myLat+','+myLon); // OK!
-				distancia.push(calculateDistance(lon,lat,myLon,myLat));
-				//meters=calculateDistance(lon,lat,myLon,myLat);
+				//console.log(lat+","+lon+' > '+myLat+','+myLon); // OK!
+				//distancia.push(calculateDistance(lon,lat,myLon,myLat));
+				meters=calculateDistance(lon,lat,myLon,myLat);
 				//console.log(lon+","+lat+" + "+myLon+","+myLat+" = "+meters); // OK
-				//console.log(meters +" metros"); // OK
-				return calculateDistance(lon,lat,myLon,myLat) +" metros";
+				//alert(meters +" metros"); // OK
+				return meters;
 			}, function(error) {
 				alert('Es necesario que active la localizacion / ' + error.message);
 				// error.code can be:
@@ -66,21 +66,7 @@ angular.module('starter.filters', [])
 				// 2: position unavailable (error response from locaton provider)
 				// 3: timed out
 			});
-			//console.log(pos.coords.longitude+","+pos.coords.latitude+" + "+myLon+","+myLat); // OK
-			
-			//return meters;
 		}
-		//window.navigator.geolocation.getCurrentPosition(function(pos){
-			//metros = calculateDistance(pos.coords.longitude, pos.coords.latitude, parseFloat(posicion[1]), parseFloat(posicion[0]));
-			//console.log(pos); 
-			//console.log(metros);
-			//return distancia;
-		//});
-		//console.log('myPos: '+pos.coords.latitude+","+pos.coords.longitude +" "+metros); 
-		//console.log(calculateDistance(lon,lat,myLon,myLat));
-		//distancia.push(calculateDistance(lon,lat,myLon,myLat));
-		//return distancia +" metros";
-		//distancia="";
 	};
 });
 /* */
