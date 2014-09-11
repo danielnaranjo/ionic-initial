@@ -6,12 +6,13 @@
 				<h3>{{bar.name}}</h3>
 				<p>
 					<i class="icon ion-star" data-ng-repeat="i in bar.stars|ranking:bar.stars"></i>
+					<i class="icon ion-person" ng-show="bar.comentarios"></i>
 					<i class="icon ion-heart" ng-show="bar.favorite"></i>
 					<i class="icon ion-pizza" ng-show="bar.cocina"></i>
 					<i class="icon ion-wifi" ng-show="bar.wifi"></i>
 					<i class="icon ion-model-s" ng-show="bar.parking"></i>
 				</p>
-				<p class="right">{{bar.gps|distancia}} metros</p>
+				<p class="right"><i class="icon ion-location" ng-show="bar.gps|distancia"></i> {{bar.gps|distancia}}</p>
 			</ion-item>
 		</ion-list>
 	</ion-content>

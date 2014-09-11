@@ -100,20 +100,20 @@ angular.module('starter', [
           controller: 'HoyCtrl'
         }
       }
-    })
-
-    .state('tab.ajustes', {
-      url: '/ajustes',
-      views: {
-        'tab-ajustes': {
-          templateUrl: 'templates/tab-ajustes.html',
-          controller: 'AccountCtrl'
-        }
-      }
     });
 
+    // .state('tab.ajustes', {
+    //   url: '/ajustes',
+    //   views: {
+    //     'tab-ajustes': {
+    //       templateUrl: 'templates/tab-ajustes.html',
+    //       controller: 'AccountCtrl'
+    //     }
+    //   }
+    // });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/hoy');
+  $urlRouterProvider.otherwise('/tab/buscador');
 
 });
 

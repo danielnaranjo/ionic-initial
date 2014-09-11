@@ -1,18 +1,5 @@
-<ion-view title="" padding="true">
+<ion-view title="Locales en Madrid" padding="true">
 	
-	<ion-nav-buttons>
-		<div class="bar-header item-input-inset">
-			<label class="item-input-wrapper">
-				<i class="icon ion-ios7-search placeholder-icon"></i>
-				<input type="search" placeholder="Search" ng-model="query" size="80">
-			</label>
-			<button 
-				menu-toggle="right" 
-				class="button button-icon icon ion-navicon">
-			</button>
-		</div>
-   </ion-nav-buttons>
-
 	<ion-content padding="true">
 
 		<ion-refresher on-refresh="doRefresh()"
@@ -21,31 +8,43 @@
 			refreshing-icon="ion-loading-c">        
       	</ion-refresher>
       	
+      	<div class="list list-inset">
+			<label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+				<input type="text" placeholder="Buscar" ng-model="query">
+			</label>
+		</div>
 		<ion-list>
-			<ion-item type="item-text-wrap" ng-show="bares.length==0 || query.length==0">
-				<h3>
-					<i class="icon ion-sad"></i> 
-					Lo sentimos, no conocemos el bar
-				</h3>
-			</ion-item>
-			<ion-item ng-repeat="bar in bares | filter:query" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" >
+			<!-- <div class="row responsive-sm" style="margin:-10px 0 5px -5px;">
+				<img src="img/banner.jpg" alt="">
+			</div> -->
+			<ion-item ng-repeat="bar in bares.locals | filter:query" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" >
 				<img ng-src="{{bar.logo}}">
-				<h3>
+				<h3 style="margin:0" class="balanced">
 					{{bar.name}}
-					<i class="icon ion-wineglass" ng-show="bar.promo"></i>
+					<span> {{bar.menus[0].price | number:2}} {{bar.menus[0].currency}}</span>
 				</h3>
-				<p>
-					<i class="icon ion-star" data-ng-repeat="i in bar.stars|ranking:bar.stars"></i>
-					<i class="icon ion-heart" ng-show="bar.favorite"></i>
-					<i class="icon ion-pizza" ng-show="bar.cocina"></i>
-					<i class="icon ion-wifi" ng-show="bar.wifi"></i>
-					<i class="icon ion-model-s" ng-show="bar.parking"></i>
+				<p style="margin:0">
+					<small ng-show="bar.address">{{bar.address}}</small>
+					<small ng-show="bar.phone">Tel. {{bar.phone}}</small>
 				</p>
-				<p class="right">{{bar.gps|distancia}}</p>
+				<ol>
+					<li><strong>1.</strong> {{bar.menus[0].start | limitTo:30}}</li>
+					<li><strong>2.</strong> {{bar.menus[0].main | limitTo:30}}</li>
+				</ol>
+				<p>
+					<i class="icon ion-star" data-ng-repeat="i in bar.range|ranking:bar.range"></i>
+					<i class="icon ion-person" ng-show="bar.features.parking"></i>
+					<i class="icon ion-heart" ng-show="bar.features.wifi"></i>
+					<i class="icon ion-pizza" ng-show="bar.features.deck"></i>
+					<i class="icon ion-wifi" ng-show="bar.features.wheelchair"></i>
+					<i class="icon ion-model-s" ng-show="bar.features.delivery"></i>
+				</p>
 			</ion-item>
-
+<!-- 			<div class="row responsive-sm" style="margin:5px 0 5px -5px;">
+				<img src="img/banner.jpg" alt="">
+			</div> -->
 		</ion-list>
-
 	</ion-content>
 </ion-view>
 

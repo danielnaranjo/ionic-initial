@@ -10,8 +10,8 @@ angular.module('starter.filters', [])
 	}
     return range;
 	};
-})//;
-
+})
+//;
 .filter('distancia', function() {
 	return function(input){
 		var posicion=input.split(','),
@@ -21,7 +21,7 @@ angular.module('starter.filters', [])
 			lon=0,
 			metros=0,
 			distancia=[],
-			meters=0;
+			meters=1;
 		// String a Numero
 		myLat=parseFloat(posicion[0]);
 		myLon=parseFloat(posicion[1]);
@@ -67,6 +67,7 @@ angular.module('starter.filters', [])
 				// 3: timed out
 			});
 		}
+		return meters +" mts";
 	};
 });
 /* */

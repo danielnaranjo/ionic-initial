@@ -42,32 +42,32 @@ angular.module('starter', [
 
     // Each tab has its own nav history stack:
 
-    .state('tab.dash', {
-      url: '/dash',
+    .state('tab.buscador', {
+      url: '/buscador',
       views: {
-        'tab-dash': {
-          templateUrl: 'templates/tab-dash.html',
+        'tab-buscador': {
+          templateUrl: 'templates/tab-buscador.html',
           controller: 'DashCtrl'
         }
       }
     })
 
-    .state('tab.friends', {
-      url: '/friends',
+    .state('tab.mapa', {
+      url: '/mapa',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/tab-friends.html',
-          controller: 'FriendsCtrl'
+        'tab-mapa': {
+          templateUrl: 'templates/tab-mapa.html',
+          controller: 'MapaCtrl'
         }
       }
     })
 
-    .state('tab.friend-detail', {
-      url: '/friend/:friendId',
+    .state('tab.tab-detalle', {
+      url: '/bar/:barId',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/friend-detail.html',
-          controller: 'FriendDetailCtrl'
+        'tab-mapa': {
+          templateUrl: 'templates/tab-detalle.html',
+          controller: 'DetailCtrl'
         }
       }
     })
@@ -82,15 +82,15 @@ angular.module('starter', [
       }
     })
 
-    .state('tab.favoritos-detail', {
-      url: '/bar/:barId',
-      views: {
-        'tab-favoritos': {
-          templateUrl: 'templates/favoritos-detail.html',
-          controller: 'FavoritosDetailCtrl'
-        }
-      }
-    })
+    // .state('tab.favoritos-detail', {
+    //   url: '/fav/:barId',
+    //   views: {
+    //     'tab-favoritos': {
+    //       templateUrl: 'templates/favoritos-detail.html',
+    //       controller: 'FavoritosDetailCtrl'
+    //     }
+    //   }
+    // })
 
     .state('tab.hoy', {
       url: '/hoy',
@@ -102,18 +102,18 @@ angular.module('starter', [
       }
     })
 
-    .state('tab.account', {
-      url: '/account',
+    .state('tab.ajustes', {
+      url: '/ajustes',
       views: {
-        'tab-account': {
-          templateUrl: 'templates/tab-account.html',
+        'tab-ajustes': {
+          templateUrl: 'templates/tab-ajustes.html',
           controller: 'AccountCtrl'
         }
       }
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/hoy');
 
 });
 

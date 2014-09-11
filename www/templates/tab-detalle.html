@@ -8,14 +8,15 @@
 			<div class="col col-50">
 				<h3>{{bar.name}}</h3>
 				<h4>
-					<i class="icon ion-star" data-ng-repeat="i in bar.stars|ranking:bar.stars"></i>
-					<i class="icon ion-heart" ng-show="bar.favorite"></i>
-					<i class="icon ion-pizza" ng-show="bar.cocina"></i>
-					<i class="icon ion-wifi" ng-show="bar.wifi"></i>
-					<i class="icon ion-model-s" ng-show="bar.parking"></i>
+					<i class="icon ion-star" data-ng-repeat="i in bar.range|ranking:bar.range"></i>
+					<i class="icon ion-person" ng-show="bar.features.parking"></i>
+					<i class="icon ion-heart" ng-show="bar.features.wifi"></i>
+					<i class="icon ion-pizza" ng-show="bar.features.deck"></i>
+					<i class="icon ion-wifi" ng-show="bar.features.wheelchair"></i>
+					<i class="icon ion-model-s" ng-show="bar.features.delivery"></i>
 				</h4>
 				<p>{{bar.address}}</p>
-				<p class="right">{{bar.gps.lat}},{{bar.gps.lon}}</p>
+				<p class="right"><i class="icon ion-location" ng-show="bar.gps|distancia"></i> {{bar.gps|distancia}} {{bar.gps}}</p>
 			</div>
 		</div>
 		<div class="row responsive-sms">
@@ -26,12 +27,34 @@
 		<div class="row responsive-sms">
 			<div class="col">
 				<div class="button-bar">
-				  <a class="button" ng-href="tel:{{bar.phone}}">Llamar</a>
-				  <a class="button" ng-href="#/tab/mapa">Mapa</a>
-				  <a class="button">Compartir</a>
+				  <a class="button icon ion-ios7-telephone" ng-href="tel:{{bar.phone}}"></a>
+				  <a class="button icon ion-map" ng-href="#/tab/mapa"></a>
+				  <a class="button icon ion-share"></a>
 				</div>
 			</div>
 		</div>
+		<!-- testimonios -->
+		<div class="row responsive-sms" ng-show="bar.comentarios">
+			<div class="col">
+				<h3><i class="icon ion-chatboxes"></i></h3>
+			</div>
+			<div class="col col-90">
+				<h3>Comentarios</h3>
+			</div>
+		</div>
+		<div class="row responsive-sms" ng-repeat="comentario in bar.comments">
+			<div class="col col-80">
+				<h5 style="margin:0;"><a ng-href="mailto:{{comentario.comment.email}}"></a>{{comentario.comment.name}}</h5>
+				<p style="margin:0;">{{comentario.comment.fecha|date:"d/MM/y"}}<br/>
+				{{comentario.texto}}</p>
+			</div>
+			<div class="col">
+				<h1><i class="ion ion-person" style="color:#f90"></i></h1>
+			</div>
+		</div>
+		<!-- testimonios -->
+
+		<!-- promociones -->
 		<div class="row responsive-sms" ng-show="bar.imgpromo">
 			<div class="col">
 				<h3><i class="icon ion-pricetags"></i></h3>
@@ -45,6 +68,7 @@
 				<img src="{{bar.imgpromo}}" style="width:100%"/>
 			</div>
 		</div>
+		<!-- promociones -->
 	</ion-content>
 			
 </ion-view>

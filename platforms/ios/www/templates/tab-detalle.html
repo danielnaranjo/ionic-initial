@@ -1,0 +1,50 @@
+<ion-view title="{{bar.name}}" ng-controller="DetailCtrl">
+
+	<ion-content class="has-header" padding="true">
+		<div class="row responsive-sms">
+			<div class="col col-50">
+				<img ng-src="{{bar.logo}}" style="width:100%">
+			</div>
+			<div class="col col-50">
+				<h3>{{bar.name}}</h3>
+				<h4>
+					<i class="icon ion-star" data-ng-repeat="i in bar.stars|ranking:bar.stars"></i>
+					<i class="icon ion-heart" ng-show="bar.favorite"></i>
+					<i class="icon ion-pizza" ng-show="bar.cocina"></i>
+					<i class="icon ion-wifi" ng-show="bar.wifi"></i>
+					<i class="icon ion-model-s" ng-show="bar.parking"></i>
+				</h4>
+				<p>{{bar.address}}</p>
+				<p class="right">{{bar.gps.lat}},{{bar.gps.lon}}</p>
+			</div>
+		</div>
+		<div class="row responsive-sms">
+		  <div class="col">
+		  	<p>{{bar.description}}</p>
+		  </div>
+		</div>
+		<div class="row responsive-sms">
+			<div class="col">
+				<div class="button-bar">
+				  <a class="button" ng-href="tel:{{bar.phone}}">Llamar</a>
+				  <a class="button" ng-href="#/tab/mapa">Mapa</a>
+				  <a class="button">Compartir</a>
+				</div>
+			</div>
+		</div>
+		<div class="row responsive-sms" ng-show="bar.imgpromo">
+			<div class="col">
+				<h3><i class="icon ion-pricetags"></i></h3>
+			</div>
+			<div class="col col-90">
+				<h3>Promociones</h3>
+			</div>
+		</div>
+		<div class="row responsive-sms">
+			<div class="col">
+				<img src="{{bar.imgpromo}}" style="width:100%"/>
+			</div>
+		</div>
+	</ion-content>
+			
+</ion-view>

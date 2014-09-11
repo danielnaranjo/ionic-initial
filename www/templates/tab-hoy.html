@@ -1,10 +1,13 @@
 <ion-view title="Promociones">
+	<ion-nav-buttons side="right">
+	  	<button class="button button-icon icon ion-map"></button>
+	</ion-nav-buttons>
 	<ion-content has-header="true" padding="true">
 		<div class="list card" ng-repeat="bar in bares" href="#/tab/bar/{{bar.id}}" ng-show="bar.promo">
 			<div class="item item-avatar">
 				<img ng-src="{{bar.logo}}">
 				<h2>{{bar.name}}</h2>
-				<p>{{bar.address}}</p>
+				<p>{{bar.address}} <i class="icon ion-location" ng-show="bar.gps|distancia"></i> {{bar.gps|distancia}}</p>
 			</div>
 			<div class="item item-image">
 				<a href="#/tab/bar/{{bar.id}}">
