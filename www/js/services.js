@@ -21,7 +21,10 @@ angular.module('starter.services', [])
       twitter: "@loultimoenlaweb",
       facebook: "faceboook.com/loultimoenlaweb",
       logo:"img/img3.jpg",
-      gps: "-11.500,-63.700",
+      gps: [{
+        lon:-63.700,
+        lat:-11.500
+      }],
       business: "De 19:00 a 24:00",
       payments: "Visa,MC,Amex,Ticket",
       range: 2,
@@ -65,7 +68,10 @@ angular.module('starter.services', [])
       twitter: "@loultimoenlaweb",
       facebook: "faceboook.com/loultimoenlaweb",
       logo:"img/img2.jpg",
-      gps: "8,-63",
+      gps: [{
+        lon:-11,
+        lat:8
+      }],
       business: "De 19:00 a 24:00",
       payments: "Visa,MC,Amex,Ticket",
       range: 5,

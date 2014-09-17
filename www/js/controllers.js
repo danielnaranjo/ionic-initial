@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ionic',])
 
-.controller('DashCtrl', function($scope, $http, Bares){
+.controller('DashCtrl', function($scope, $ionicLoading, $ionicPopup, $http, Bares){
   //$scope.data = {};
   $scope.bares = Bares.all();
   // $scope.ubicacion = function(x,y,z) {
@@ -18,7 +18,65 @@ $http.get('http://localhost:8888/api/locals')
     console.log(e.name);
   });
 */
-})
+
+$scope.loading = $ionicLoading.show({
+    content: 'Getting current location...',
+    showBackdrop: false
+  });
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    var coords = $scope.currentLocation = [pos.coords.longitude, pos.coords.latitude];
+    //$scope.locations = LocationsService.allSync();
+    //$scope.sortLoc = SettingsService.get('sortLocBy');
+    console.log(coords);
+    $ionicLoading.hide();
+  }, function(error) {
+    $ionicPopup.alert({
+      title: 'Unable to get location: ' + error.code
+    }).then(function(res) {
+      $ionicLoading.hide();
+      // not working
+    });
+  });
+
+  $scope.distanceFromHere = function (_item, _startPoint) {
+    var start = null;
+
+    var radiansTo = function (start, end) {
+      var d2r = Math.PI / 180.0;
+      var lat1rad = start.latitude * d2r;
+      var long1rad = start.longitude * d2r;
+      var lat2rad = end.latitude * d2r;
+      var long2rad = end.longitude * d2r;
+      var deltaLat = lat1rad - lat2rad;
+      var deltaLong = long1rad - long2rad;
+      var sinDeltaLatDiv2 = Math.sin(deltaLat / 2);
+      var sinDeltaLongDiv2 = Math.sin(deltaLong / 2);
+      // Square of half the straight line chord distance between both points.
+      var a = ((sinDeltaLatDiv2 * sinDeltaLatDiv2) +
+              (Math.cos(lat1rad) * Math.cos(lat2rad) *
+                      sinDeltaLongDiv2 * sinDeltaLongDiv2));
+      a = Math.min(1.0, a);
+      return 2 * Math.asin(Math.sqrt(a));
+    };
+
+    if ($scope.currentLocation) {
+      start = {
+        longitude: $scope.currentLocation[0],
+        latitude: $scope.currentLocation[1]
+      };
+    }
+    start = _startPoint || start;
+
+    var end = {
+      longitude: _item.gps.lon,
+      latitude: _item.gps.lat
+    };
+
+    var num = radiansTo(start, end) * 3958.8;
+    return Math.round(num * 100) / 100 +" mts";
+  };
+
+}) // End DashCtrl
 
 .controller('DetailCtrl', function($scope, $http, $ionicActionSheet, $ionicPopup, $stateParams, Bares) {
   $scope.bar = Bares.get($stateParams.barId);

@@ -7,7 +7,7 @@
 			<div class="item item-avatar">
 				<img ng-src="{{bar.logo}}" ng-href="#/tab/bar/{{bar.id}}">
 				<h2 ng-href="#/tab/bar/{{bar.id}}" class="barTitle">{{bar.name}} <i class="icon ion-star energized" data-ng-repeat="i in bar.range|ranking:bar.range"></i></h2>
-				<p>{{bar.address}} <i class="icon ion-location" ng-show="bar.gps|distancia"></i> {{bar.gps|distancia}}</p>
+				<p>{{bar.address}} <i class="icon ion-location" ng-show="bar.gps"></i> {{bar.gps}}</p>
 			</div>
 			<div class="item item-image">
 		      <div class="row">

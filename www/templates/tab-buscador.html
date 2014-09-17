@@ -36,6 +36,7 @@
             {{bar.name}}<br/>
             <i class="icon ion-star energized" data-ng-repeat="i in bar.range|ranking:bar.range"></i> <span class="dark">{{bar.menus[0].price | number:2 | currency:"EU "}}</span>
           </h3>
+          <p style="margin:0"><i class="icon ion-location"></i> {{bar.distanceFromHere(bar.gps)}} {{bar.gps}}</p>
           <p style="margin:0">
             <small ng-show="bar.address">{{bar.address}}</small>
             <small ng-show="bar.phone">Tel. {{bar.phone}}</small>
@@ -45,7 +46,6 @@
             <li>{{menu.main | limitTo:30}}</li>
           </ol>
           <p>
-            
             <i class="icon ion-person" ng-show="bar.features.parking"></i>
             <i class="icon ion-heart" ng-show="bar.features.wifi"></i>
             <i class="icon ion-pizza" ng-show="bar.features.deck"></i>
@@ -61,15 +61,3 @@
       </ion-list> 
     </ion-content>
   </ion-view>
-
-  <script>
-  /*
-  $(document).ready(function(){
-    $.getJSON('http://localhost:8888/api/locals/1', function(){
-      $.each( data, function( key, val ) {
-        console.log(val.name);
-      }
-    });
-  });
-  */
-  </script>
