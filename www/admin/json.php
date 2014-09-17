@@ -1,6 +1,7 @@
 <?php
 	header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 	header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Fecha en el pasado
+	header("Access-Control-Allow-Origin: *");
 	header('Content-Type: application/json');
 
 	include('config.php');
@@ -11,7 +12,7 @@
   	$row_locales=mysql_fetch_array($result_locales);
   	$totales=mysql_num_rows($result_locales);
 
-  	echo "["; // start object
+  	//echo "["; // start object
   	//echo '"locals":'; // starts locals
   	if($totales>0) {
   		echo "{";
@@ -118,5 +119,5 @@
   		//echo '}'; // starts locals
   	} // end totales
 
-  	echo "]"; // end object
+  	//echo "]"; // end object
 ?>

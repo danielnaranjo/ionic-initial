@@ -3,7 +3,7 @@
 		<ion-list>
 			<ion-item ng-repeat="bar in bares" type="item-text-wrap" href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" ng-show="bar.favorite">
 				<img ng-src="{{bar.logo}}">
-				<h3>{{bar.name}}</h3>
+				<h3 class="barTitle">{{bar.name}}</h3>
 				<p>
 					<i class="icon ion-star" data-ng-repeat="i in bar.stars|ranking:bar.stars"></i>
 					<i class="icon ion-person" ng-show="bar.comentarios"></i>
@@ -13,6 +13,11 @@
 					<i class="icon ion-model-s" ng-show="bar.parking"></i>
 				</p>
 				<p class="right"><i class="icon ion-location" ng-show="bar.gps|distancia"></i> {{bar.gps|distancia}}</p>
+			</ion-item>
+			<ion-item type="item-text-wrap" href="#" ng-show="!bar.favorite">
+				<h2>
+					<i class="icon ion-sad"></i> No tienes favoritos
+				</h2>
 			</ion-item>
 		</ion-list>
 	</ion-content>

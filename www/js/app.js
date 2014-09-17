@@ -62,6 +62,16 @@ angular.module('starter', [
       }
     })
 
+    .state('tab.map-detalle', {
+      url: '/map/:barId',
+      views: {
+        'map-detalle': {
+          templateUrl: 'templates/map-detalle.html',
+          controller: 'VerMapaCtrl'
+        }
+      }
+    })
+
     .state('tab.tab-detalle', {
       url: '/bar/:barId',
       views: {

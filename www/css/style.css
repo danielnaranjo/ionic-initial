@@ -1,4 +1,26 @@
 /* Empty. Add your own CSS if you like */
+
+/*@import url(http://fonts.googleapis.com/css?family=Pacifico);*/
+@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
+
+.card .item-text-wrap, .card .item-divider {
+  background-color: #093206;
+  color: #FFF;
+  /*font-family: 'Pacifico', cursive;*/
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 2em;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.barTitle {
+  color: #43AB12;
+}
+
+.card .tabs {
+  background-color: transparent;
+}
+
 .bar.bar-stable { 
 	background-color: #e1ffe2;
 }
@@ -24,4 +46,22 @@
 }
 ol {
   font-size: .8em;
+}
+
+/* http://codepen.io/ionic/pen/uJkCz */
+/*
+ * http://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
+ */
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
 }

@@ -1,74 +1,71 @@
-<ion-view title="{{bar.name}}" ng-controller="DetailCtrl">
+  <ion-view title="{{bar.name}}" ng-controller="DetailCtrl">
+    <ion-content class="has-header" padding="true">
+      <div class="row responsive-sms">
+        <div class="col col-50">
+          <img ng-src="{{bar.logo}}" style="width:100%">
+        </div>
+        <div class="col col-50">
+          <h3 style="margin:0" class="barTitle">{{bar.name}}<br/>
+            <i class="icon ion-star energized" data-ng-repeat="i in bar.range|ranking:bar.range"></i>
+          </h3>
+          <p>
+            {{bar.address}}<br/>
+            <span ng-show="bar.phone" ng-href="tel:{{bar.phone}}">Tel. {{bar.phone}}</span>
+          </p>
+          <p class="right"><i class="icon ion-location" ng-show="bar.gps|distancia"></i> {{bar.gps|distancia}} </p>
+        </div>
+      </div>
+      <div class="row responsive-sms">
+        <div class="col">
+          <p>{{bar.description}}</p>
+        </div>
+      </div>
+      <div class="row responsive-sms">
+        <div class="col">
+          <div class="button-bar">
+            <a class="button icon ion-ios7-telephone" ng-click="showConfirm('tel:{{bar.phone}}')"></a>
+            <a class="button icon ion-ios7-email" ng-click="showConfirm('mailto:{{bar.email}}')"></a>
+            <a class="button icon ion-map" ng-href="#"></a><!-- /tab/map/{{bar.id}} -->
+            <a class="button icon ion-share" ng-click="showActionsheet()"></a>
+          </div>
+        </div>
+      </div>
 
-	<ion-content class="has-header" padding="true">
-		<div class="row responsive-sms">
-			<div class="col col-50">
-				<img ng-src="{{bar.logo}}" style="width:100%">
-			</div>
-			<div class="col col-50">
-				<h3>{{bar.name}}</h3>
-				<h4>
-					<i class="icon ion-star" data-ng-repeat="i in bar.range|ranking:bar.range"></i>
-					<i class="icon ion-person" ng-show="bar.features.parking"></i>
-					<i class="icon ion-heart" ng-show="bar.features.wifi"></i>
-					<i class="icon ion-pizza" ng-show="bar.features.deck"></i>
-					<i class="icon ion-wifi" ng-show="bar.features.wheelchair"></i>
-					<i class="icon ion-model-s" ng-show="bar.features.delivery"></i>
-				</h4>
-				<p>{{bar.address}}</p>
-				<p class="right"><i class="icon ion-location" ng-show="bar.gps|distancia"></i> {{bar.gps|distancia}} {{bar.gps}}</p>
-			</div>
-		</div>
-		<div class="row responsive-sms">
-		  <div class="col">
-		  	<p>{{bar.description}}</p>
-		  </div>
-		</div>
-		<div class="row responsive-sms">
-			<div class="col">
-				<div class="button-bar">
-				  <a class="button icon ion-ios7-telephone" ng-href="tel:{{bar.phone}}"></a>
-				  <a class="button icon ion-map" ng-href="#/tab/mapa"></a>
-				  <a class="button icon ion-share"></a>
-				</div>
-			</div>
-		</div>
-		<!-- testimonios -->
-		<div class="row responsive-sms" ng-show="bar.comentarios">
-			<div class="col">
-				<h3><i class="icon ion-chatboxes"></i></h3>
-			</div>
-			<div class="col col-90">
-				<h3>Comentarios</h3>
-			</div>
-		</div>
-		<div class="row responsive-sms" ng-repeat="comentario in bar.comments">
-			<div class="col col-80">
-				<h5 style="margin:0;"><a ng-href="mailto:{{comentario.comment.email}}"></a>{{comentario.comment.name}}</h5>
-				<p style="margin:0;">{{comentario.comment.fecha|date:"d/MM/y"}}<br/>
-				{{comentario.texto}}</p>
-			</div>
-			<div class="col">
-				<h1><i class="ion ion-person" style="color:#f90"></i></h1>
-			</div>
-		</div>
-		<!-- testimonios -->
+      <div class="row">
+        <div class="col">
+          <div class="card" ng-repeat="menu in bar.menus" ng-show="bar.menus">
+            <div class="item item-divider">
+              Menu del {{menu.validFrom|date:"d/MM"}} al {{menu.validTo|date:"d/MM"}}
+            </div>
+            <div class="item item-text-wrap">
+              <li>{{menu.start}}</li>
+              <li>{{menu.main}}</li>
+              <li>{{menu.dessert}}</li>
+            </div>
+            <div class="item item-divider">
+              {{menu.price | number:2 | currency:"EU "}}
+            </div>
+          </div>
+        </div>
+      </div>
 
-		<!-- promociones -->
-		<div class="row responsive-sms" ng-show="bar.imgpromo">
-			<div class="col">
-				<h3><i class="icon ion-pricetags"></i></h3>
-			</div>
-			<div class="col col-90">
-				<h3>Promociones</h3>
-			</div>
-		</div>
-		<div class="row responsive-sms">
-			<div class="col">
-				<img src="{{bar.imgpromo}}" style="width:100%"/>
-			</div>
-		</div>
-		<!-- promociones -->
-	</ion-content>
-			
-</ion-view>
+      <div class="row responsive-sms" ng-show="bar.comments">
+        <div class="col">
+          <h3><i class="icon ion-chatboxes"></i></h3>
+        </div>
+        <div class="col col-90">
+          <h3>Comentarios</h3>
+        </div>
+      </div>
+      <div class="row responsive-sms" ng-repeat="comentario in bar.comments">
+        <div class="col col-80">
+          <h5 style="margin:0;"><a ng-href="mailto:{{comentario.comment.email}}"></a>{{comentario.comment.name}}</h5>
+          <p style="margin:0;">{{comentario.comment.fecha|date:"d/MM/y"}}<br/>
+          {{comentario.texto}}</p>
+        </div>
+        <div class="col">
+          <h1><i class="ion ion-person" style="color:#f90"></i></h1>
+        </div>
+      </div>
+    </ion-content>
+  </ion-view>

@@ -1,23 +1,47 @@
-<ion-view title="Promociones">
+<ion-view title="Promociones" ng-controller="HoyCtrl">
 	<ion-nav-buttons side="right">
-	  	<button class="button button-icon icon ion-map"></button>
+	  	<button class="button button-icon icon ion-map" href="#/tab/mapa"></button>
 	</ion-nav-buttons>
 	<ion-content has-header="true" padding="true">
-		<div class="list card" ng-repeat="bar in bares" href="#/tab/bar/{{bar.id}}" ng-show="bar.promo">
+		<div class="list card" ng-repeat="bar in bares">
 			<div class="item item-avatar">
-				<img ng-src="{{bar.logo}}">
-				<h2>{{bar.name}}</h2>
+				<img ng-src="{{bar.logo}}" ng-href="#/tab/bar/{{bar.id}}">
+				<h2 ng-href="#/tab/bar/{{bar.id}}" class="barTitle">{{bar.name}} <i class="icon ion-star energized" data-ng-repeat="i in bar.range|ranking:bar.range"></i></h2>
 				<p>{{bar.address}} <i class="icon ion-location" ng-show="bar.gps|distancia"></i> {{bar.gps|distancia}}</p>
 			</div>
 			<div class="item item-image">
-				<a href="#/tab/bar/{{bar.id}}">
-					<img ng-src="{{bar.imgpromo}}">
-				</a>
+		      <div class="row">
+		        <div class="col">
+		          <div class="card" ng-repeat="menu in bar.menus" ng-show="bar.menus">
+		            <div class="item item-divider">
+		              Menu del {{menu.validFrom|date:"d/MM"}} al {{menu.validTo|date:"d/MM/y"}}
+		            </div>
+		            <div class="item item-text-wrap">
+		              <li>{{menu.start}}</li>
+		              <li>{{menu.main}}</li>
+		              <li>{{menu.dessert}}</li>
+		            </div>
+		            <div class="item item-divider">
+		              {{menu.price | number:2 | currency:"EU "}}
+		            </div>
+		          </div>
+		        </div>
+		      </div>
 			</div>
-			<a class="item item-icon-left assertive" href="#/tab/bar/{{bar.id}}">
-				<i class="icon ion-beer"></i>
-				{{bar.promo}}
-			</a>
+			<div class="item tabs tabs-secondary tabs-icon-left">
+			    <a class="tab-item" ng-click="showConfirm('tel:{{bar.phone}}')">
+			      <i class="icon ion-ios7-telephone"></i>
+			      Llamar
+			    </a>
+			    <a class="tab-item" ng-click="showConfirm('mailto:{{bar.email}}')">
+			      <i class="icon icon ion-ios7-email"></i>
+			      Escribir
+			    </a>
+			    <a class="tab-item"  ng-click="showActionsheet()">
+			      <i class="icon ion-share"></i>
+			      Compartir
+			    </a>
+			</div>
 		</div>
 	</ion-content>
 </ion-view>

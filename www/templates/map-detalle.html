@@ -1,0 +1,12 @@
+<ion-view title="{{bar.name}}" ng-controller="VerMapaCtrl">
+	
+	<ion-nav-buttons side="right">
+    	<button class="button button-icon icon ion-compass" ng-click="centerOnMe()" ></button>
+   	</ion-nav-buttons>
+
+	<ion-content class="has-header" padding="false">
+	{{bar.gps}}
+		<!-- <div id="map" data-tap-disabled="true"></div> -->
+	</ion-content>
+	
+</ion-view>
