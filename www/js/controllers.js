@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic'])
+angular.module('starter.controllers', ['ionic','leaflet-directive'])
 
 .controller('DashCtrl', function($scope, $ionicPopup, $ionicLoading, $http, Bares, MyService){
   $scope.data = {};
@@ -62,63 +62,6 @@ $http.get('http://localhost:8888/api/locals')
   });
 */
 
-/*
-$scope.loading = $ionicLoading.show({
-    content: 'Getting current location...',
-    showBackdrop: false
-  });
-  navigator.geolocation.getCurrentPosition(function(pos) {
-    var coords = $scope.currentLocation = [pos.coords.longitude, pos.coords.latitude];
-    console.log(coords);
-    $ionicLoading.hide();
-  }, function(error) {
-    $ionicPopup.alert({
-      title: 'Unable to get location: ' + error.message
-    }).then(function(res) {
-      $ionicLoading.hide();
-      // not working
-    });
-  });
-
-  $scope.distanceFromHere = function (_item, _startPoint) {
-    var start = null;
-
-    var radiansTo = function (start, end) {
-      var d2r = Math.PI / 180.0;
-      var lat1rad = start.latitude * d2r;
-      var long1rad = start.longitude * d2r;
-      var lat2rad = end.latitude * d2r;
-      var long2rad = end.longitude * d2r;
-      var deltaLat = lat1rad - lat2rad;
-      var deltaLong = long1rad - long2rad;
-      var sinDeltaLatDiv2 = Math.sin(deltaLat / 2);
-      var sinDeltaLongDiv2 = Math.sin(deltaLong / 2);
-      // Square of half the straight line chord distance between both points.
-      var a = ((sinDeltaLatDiv2 * sinDeltaLatDiv2) +
-              (Math.cos(lat1rad) * Math.cos(lat2rad) *
-                      sinDeltaLongDiv2 * sinDeltaLongDiv2));
-      a = Math.min(1.0, a);
-      return 2 * Math.asin(Math.sqrt(a));
-    };
-
-    if ($scope.currentLocation) {
-      start = {
-        longitude: $scope.currentLocation[0],
-        latitude: $scope.currentLocation[1]
-      };
-    }
-    start = _startPoint || start;
-
-    var end = {
-      longitude: _item.lng,
-      latitude: _item.lat
-    };
-
-    var num = radiansTo(start, end) * 3958.8;
-    console.log(Math.round(num * 100) / 100);
-    return Math.round(num * 100) / 100;
-  };
-*/
 }) // End DashCtrl
 
 .controller('DetailCtrl', function($scope, $http, $ionicActionSheet, $ionicPopup, $stateParams, Bares, MyService) {
@@ -151,105 +94,62 @@ $scope.loading = $ionicLoading.show({
    }; // Llamar
 })
 
-.controller('MapaCtrl', function($scope, $http, $ionicPopup, $ionicLoading, $compile, Bares, MyService) {
+.controller('MapaCtrl', function($scope, Bares) {
   $scope.bares = Bares.all();
-  
+
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    $scope.center.lat=pos.coords.latitude;
+    $scope.center.lng=pos.coords.longitude;
+    $scope.center.markers.center.lat= $scope.center.lat;
+    $scope.center.markers.center.lng= $scope.center.lng;
+    $ionicLoading.hide();
+    //console.log('/'+myLatlng); 
+    // var lat = pos.coords.latitude;
+    // var lon = pos.coords.longitude;
+    // var myCoords = lat+','+lon;
+    // console.log('@'+myCoords);
+  }, function(error) {
+    //alert('Unable to get location: ' + error.message);
+    $ionicPopup.alert({
+      title: 'Es necesario que active la localizacion / ' + error.message
+    });
+  });
+
+
+  angular.extend($scope, {
+    // Madrid
+    center: {
+      lat: 40.4378271,
+      lng: -3.6795367,
+      zoom: 15
+    },
+    path: {
+        weight: 10,
+        opacity: 1,
+        color: '#0000ff'
+    },
+    markers: {
+        centro: {
+          lat: 51.505,
+          lng: -0.09,
+          message: "I want to travel here!",
+          focus: false,
+          draggable: false
+        },
+    },
+    defaults: {
+        scrollWheelZoom: false
+    }
+  });
+
   /* Viene de DashCtrl */
-  $scope.mygeo = MyService.data.mygeo;
-  var markers = [];
+  //$scope.mygeo = MyService.data.mygeo;
 
-  /* Consulto si hay valores, sino mando por defecto a Madrid
-  if($scope.mygeo!=="") { //10.500,-66.900
-    console.log('# '+$scope.mygeo);
-    var coords=$scope.mygeo.split(','); // OK
-    var myLatlng = new google.maps.LatLng(coords[0],coords[1]);
-  } else {
-    var myLatlng = new google.maps.LatLng(10.500,-66.900);
-  }
- */  
+        // var contentString = "<div><p><strong>Te ubicamos en España</strong>, para mejorar tu experiencia<br>";
+        // contentString+= "debes hacer clic en el boton de Localización:</p>";
+        // contentString+= "<p align=\"center\"><button class=\"button button-icon icon ion-compass\" ng-click=\"centerOnMe()\" ></button>";
+        // contentString+= "</p></div>";
 
-  //http://codepen.io/ionic/pen/uzngt/
-  //console.log('Actual: '+coords[0]+','+coords[1]);
-
-      function initialize() {
-        var myLatlng = new google.maps.LatLng(40.4378271,-3.6795367);
-        var mapOptions = {
-          center: myLatlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          zoom: 10
-        };
-        var map = new google.maps.Map(document.getElementById("map"),
-            mapOptions);
-        
-        //Marker + infowindow + angularjs compiled ng-click
-        //var contentString = "<div>Estas ubicado en "+$scope.mygeo+"</div>";
-        var contentString = "<div><p><strong>Te ubicamos en España</strong>, para mejorar tu experiencia<br>";
-        contentString+= "debes hacer clic en el boton de Localización:</p>";
-        contentString+= "<p align=\"center\"><button class=\"button button-icon icon ion-compass\" ng-click=\"centerOnMe()\" ></button>";
-        contentString+= "</p></div>";
-        compiled = $compile(contentString)($scope);
-
-        var infowindow = new google.maps.InfoWindow({
-          content: compiled[0],
-          position:myLatlng,
-          map: map
-        });
-
-        // var marker = new google.maps.Marker({
-        //   position: myLatlng,
-        //   map: map,
-        //   title: 'Ubicación'
-        // });
-
-        // google.maps.event.addListener(marker, 'click', function() {
-        //   infowindow.open(map,marker);
-        // });
-
-        $scope.map = map;
-      }
-
-      // Add a marker to the map and push to the array.
-      $scope.addMarker = function(location) {
-        var marker = new google.maps.Marker({
-          position: location,
-          map: map
-        });
-        markers.push(marker);
-        console.log('->'+marker);
-      };
-
-      //google.maps.event.addDomListener(window, 'load', initialize);
-      ionic.Platform.ready(initialize);
-        $scope.centerOnMe = function() {
-        if(!$scope.map) {
-          return;
-        }
-
-        $scope.loading = $ionicLoading.show({
-          content: 'Cargando ubicacion actual...',
-          showBackdrop: false
-        });
-
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-          var myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-          $ionicLoading.hide();
-          //console.log('/'+myLatlng); 
-          var lat = pos.coords.latitude;
-          var lon = pos.coords.longitude;
-          var myCoords = lat+','+lon;
-          console.log('@'+myCoords);
-          $scope.addMarker('Caracas').setMap(map);
-        }, function(error) {
-          //alert('Unable to get location: ' + error.message);
-          $ionicPopup.alert({
-            title: 'Es necesario que active la localizacion / ' + error.message
-          });
-        });
-      };
-      $scope.clickTest = function() {
-        alert('Example of infowindow with ng-click');
-      };
 }) // end MapCtrl
 
 .controller('HoyCtrl', function($scope, $http, $ionicActionSheet, $ionicPopup, Bares, MyService) {
@@ -299,8 +199,39 @@ $scope.loading = $ionicLoading.show({
   $scope.bares = Bares.all();
 })
 
-.controller('VerMapaCtrl', function($scope, $stateParams, Bares) {
+.controller('VerMapaCtrl', function($scope, $location, $stateParams, Bares) {
   $scope.bar = Bares.get($stateParams.barId);
+
+  $scope.$on("MapaCtrl", function(event, centerHash) {
+    console.log("url", centerHash);
+    $location.search({ c: centerHash });
+  });
+  angular.extend($scope, {
+    // Madrid
+    center: {
+      lat: 40.4378271,
+      lng: -3.6795367,
+      zoom: 15
+    },
+    path: {
+        weight: 10,
+        opacity: 1,
+        color: '#0000ff'
+    },
+    markers: {
+        centro: {
+          lat: 51.505,
+          lng: -0.09,
+          message: "I want to travel here!",
+          focus: false,
+          draggable: false
+        },
+    },
+    defaults: {
+        scrollWheelZoom: false
+    }
+  });
+  
 });
 
 // .controller('FavoritosDetailCtrl', function($scope, $stateParams, Bares) {
