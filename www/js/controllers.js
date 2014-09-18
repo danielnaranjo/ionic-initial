@@ -153,9 +153,10 @@ $scope.loading = $ionicLoading.show({
 
 .controller('MapaCtrl', function($scope, $http, $ionicPopup, $ionicLoading, $compile, Bares, MyService) {
   $scope.bares = Bares.all();
+  
   /* Viene de DashCtrl */
   $scope.mygeo = MyService.data.mygeo;
-  
+  var markers = [];
 
   /* Consulto si hay valores, sino mando por defecto a Madrid
   if($scope.mygeo!=="") { //10.500,-66.900
@@ -169,6 +170,7 @@ $scope.loading = $ionicLoading.show({
 
   //http://codepen.io/ionic/pen/uzngt/
   //console.log('Actual: '+coords[0]+','+coords[1]);
+
       function initialize() {
         var myLatlng = new google.maps.LatLng(40.4378271,-3.6795367);
         var mapOptions = {
@@ -188,24 +190,37 @@ $scope.loading = $ionicLoading.show({
         compiled = $compile(contentString)($scope);
 
         var infowindow = new google.maps.InfoWindow({
-          content: compiled[0]
+          content: compiled[0],
+          position:myLatlng,
+          map: map
         });
 
-        var marker = new google.maps.Marker({
-          position: myLatlng,
-          map: map,
-          title: 'Ubicación'
-        });
+        // var marker = new google.maps.Marker({
+        //   position: myLatlng,
+        //   map: map,
+        //   title: 'Ubicación'
+        // });
 
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map,marker);
-        });
+        // google.maps.event.addListener(marker, 'click', function() {
+        //   infowindow.open(map,marker);
+        // });
 
         $scope.map = map;
       }
+
+      // Add a marker to the map and push to the array.
+      $scope.addMarker = function(location) {
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+        markers.push(marker);
+        console.log('->'+marker);
+      };
+
       //google.maps.event.addDomListener(window, 'load', initialize);
       ionic.Platform.ready(initialize);
-      $scope.centerOnMe = function() {
+        $scope.centerOnMe = function() {
         if(!$scope.map) {
           return;
         }
@@ -217,11 +232,14 @@ $scope.loading = $ionicLoading.show({
 
         navigator.geolocation.getCurrentPosition(function(pos) {
           $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+          var myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
           $ionicLoading.hide();
-          //console.log(pos); 
+          //console.log('/'+myLatlng); 
           var lat = pos.coords.latitude;
           var lon = pos.coords.longitude;
-          //console.log(lat+','+lon);
+          var myCoords = lat+','+lon;
+          console.log('@'+myCoords);
+          $scope.addMarker('Caracas').setMap(map);
         }, function(error) {
           //alert('Unable to get location: ' + error.message);
           $ionicPopup.alert({
@@ -232,10 +250,13 @@ $scope.loading = $ionicLoading.show({
       $scope.clickTest = function() {
         alert('Example of infowindow with ng-click');
       };
-})
+}) // end MapCtrl
 
-.controller('HoyCtrl', function($scope, $http, $ionicActionSheet, $ionicPopup, Bares) {
+.controller('HoyCtrl', function($scope, $http, $ionicActionSheet, $ionicPopup, Bares, MyService) {
   $scope.bares = Bares.all();
+  /* Viene de DashCtrl */
+  $scope.mygeo = MyService.data.mygeo;
+
   // $scope.showAlert = function() {
   //    var alertPopup = $ionicPopup.alert({
   //      title: 'Gracias por preferirnos!',
@@ -280,11 +301,11 @@ $scope.loading = $ionicLoading.show({
 
 .controller('VerMapaCtrl', function($scope, $stateParams, Bares) {
   $scope.bar = Bares.get($stateParams.barId);
-})
-
-.controller('FavoritosDetailCtrl', function($scope, $stateParams, Bares) {
-  $scope.bar = Bares.get($stateParams.barId);
 });
+
+// .controller('FavoritosDetailCtrl', function($scope, $stateParams, Bares) {
+//   $scope.bar = Bares.get($stateParams.barId);
+// });
 
 // .controller('AccountCtrl', function($scope) {
 //   $scope.settingsList = [
