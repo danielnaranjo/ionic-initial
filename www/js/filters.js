@@ -11,6 +11,7 @@ angular.module('starter.filters', [])
     return range;
 	};
 })
+// not working as suppost to 
 .filter("maxLength", function(){
     return function(text,max){
         if(text != null){
@@ -20,7 +21,14 @@ angular.module('starter.filters', [])
         }
     };
 })
-//;
+// Separar de volver parametros
+.filter('separados', function() {
+	return function(input){
+	var coords=input.split(','); // OK
+    return coords[0]+':'+coords[1];
+	};
+})
+// ok!
 .filter('distancia', function(){
 	return function(input,gps){
 		var posicion=input.split(','); // OK

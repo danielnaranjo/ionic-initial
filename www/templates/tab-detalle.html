@@ -25,7 +25,7 @@
           <div class="button-bar">
             <a class="button icon ion-ios7-telephone" ng-click="showConfirm('tel:{{bar.phone}}')"></a>
             <a class="button icon ion-ios7-email" ng-click="showConfirm('mailto:{{bar.email}}')"></a>
-            <a class="button icon ion-map" ng-href="#"></a><!-- /tab/map/{{bar.id}} -->
+            <a class="button icon ion-map" ng-href="#/tab/mapa?c={{bar.location|separados}}:12"></a><!-- /tab/map/{{bar.id}} -->
             <a class="button icon ion-share" ng-click="showActionsheet()"></a>
           </div>
         </div>

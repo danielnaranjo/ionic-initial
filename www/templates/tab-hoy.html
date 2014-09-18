@@ -1,6 +1,6 @@
 <ion-view title="Promociones" ng-controller="HoyCtrl">
 	<ion-nav-buttons side="right">
-	  	<button class="button button-icon icon ion-map" href="#/tab/mapa"></button>
+	  	<button class="button button-icon icon ion-map" ng-click="centerOnMe('{{mygeo}}')" ></button>
 	</ion-nav-buttons>
 	<ion-content has-header="true" padding="true">
 		<div class="list card" ng-repeat="bar in bares">

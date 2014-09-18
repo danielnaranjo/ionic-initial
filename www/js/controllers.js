@@ -37,10 +37,12 @@ angular.module('starter.controllers', ['ionic','leaflet-directive'])
     /* Cambio el titulo */
     $scope.navTitle = "Estas cerca de "+parseInt(coords[0])+","+parseInt(coords[1]);
     /* Muestro titulo segun ciudad/pais */
-    if($scope.city!=="") {
+    if($scope.city!=="" || $scope.city!=="undefined") {
       $scope.navTitle = "Locales en "+$scope.city;
+      console.log('city:'+$scope.city);
     } else {
       $scope.navTitle = "Cercanos en "+$scope.country;
+      console.log('city:'+$scope.city+' '+$scope.country);
     }
     $ionicLoading.hide();
   }, function(error) {
@@ -53,6 +55,7 @@ angular.module('starter.controllers', ['ionic','leaflet-directive'])
   });
 
 /*
+// http://maps.googleapis.com/maps/api/distancematrix/json?origins=41.0170249,-3.8526283&destinations=41.0270249,-3.8526283
 $http.get('http://localhost:8888/api/locals')
   .success(function(data){
     $scope.bares=data;
@@ -94,27 +97,10 @@ $http.get('http://localhost:8888/api/locals')
    }; // Llamar
 })
 
-.controller('MapaCtrl', function($scope, Bares) {
+.controller('MapaCtrl', function($scope, $ionicActionSheet, $ionicPopup, $location, Bares, MyService) {
   $scope.bares = Bares.all();
-
-  navigator.geolocation.getCurrentPosition(function(pos) {
-    $scope.center.lat=pos.coords.latitude;
-    $scope.center.lng=pos.coords.longitude;
-    $scope.center.markers.center.lat= $scope.center.lat;
-    $scope.center.markers.center.lng= $scope.center.lng;
-    $ionicLoading.hide();
-    //console.log('/'+myLatlng); 
-    // var lat = pos.coords.latitude;
-    // var lon = pos.coords.longitude;
-    // var myCoords = lat+','+lon;
-    // console.log('@'+myCoords);
-  }, function(error) {
-    //alert('Unable to get location: ' + error.message);
-    $ionicPopup.alert({
-      title: 'Es necesario que active la localizacion / ' + error.message
-    });
-  });
-
+  /* Viene de DashCtrl */
+  $scope.mygeo = MyService.data.mygeo;
 
   angular.extend($scope, {
     // Madrid
@@ -123,24 +109,50 @@ $http.get('http://localhost:8888/api/locals')
       lng: -3.6795367,
       zoom: 15
     },
-    path: {
-        weight: 10,
-        opacity: 1,
-        color: '#0000ff'
-    },
     markers: {
-        centro: {
-          lat: 51.505,
-          lng: -0.09,
-          message: "I want to travel here!",
-          focus: false,
-          draggable: false
-        },
+      centro: {
+        lat: 40.4378271,
+        lng: -3.6795367,
+        message: "Madrid",
+        focus: false,
+        draggable: false
+      },
     },
     defaults: {
         scrollWheelZoom: false
     }
   });
+  /* parametros por URL */
+  $scope.$on("MapaCtrl", function(event, centerHash) {
+    $location.search({ c: centerHash });
+    console.log("url", centerHash);
+  });
+
+  if(window.document.URL.split('c')[2]==="") {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      $scope.center.lat=pos.coords.latitude;
+      $scope.center.lng=pos.coords.longitude;
+      // $scope.center.markers.center.lat= $scope.center.lat;
+      // $scope.center.markers.center.lng= $scope.center.lng;
+      $ionicLoading.hide();
+      console.log('Fired  geolocation! ');
+      // var lat = pos.coords.latitude;
+      // var lon = pos.coords.longitude;
+      // var myCoords = lat+','+lon;
+      // console.log('@'+myCoords);
+    }, function(error) {
+      //alert('Unable to get location: ' + error.message);
+      $ionicPopup.alert({
+        title: 'Es necesario que active la localizacion / ' + error.message
+      });
+    });
+  };
+  /* Reemplaza ubicacion actual por la geolocalizada */
+  $scope.centerOnMe = function(v) {
+    v=v.replace(',',':');
+    window.location.href = "#/tab/mapa?c="+v+":15";
+  };
+
 
   /* Viene de DashCtrl */
   //$scope.mygeo = MyService.data.mygeo;
@@ -193,46 +205,17 @@ $http.get('http://localhost:8888/api/locals')
       }
     });
   }; // End Scope acciones
+  /* Reemplaza ubicacion actual por la geolocalizada */
+  $scope.centerOnMe = function(v) {
+    v=v.replace(',',':');
+    window.location.href = "#/tab/mapa?c="+v+":15";
+  }; // centerOne
 })
 
 .controller('FavoritosCtrl', function($scope, Bares) {
   $scope.bares = Bares.all();
-})
-
-.controller('VerMapaCtrl', function($scope, $location, $stateParams, Bares) {
-  $scope.bar = Bares.get($stateParams.barId);
-
-  $scope.$on("MapaCtrl", function(event, centerHash) {
-    console.log("url", centerHash);
-    $location.search({ c: centerHash });
-  });
-  angular.extend($scope, {
-    // Madrid
-    center: {
-      lat: 40.4378271,
-      lng: -3.6795367,
-      zoom: 15
-    },
-    path: {
-        weight: 10,
-        opacity: 1,
-        color: '#0000ff'
-    },
-    markers: {
-        centro: {
-          lat: 51.505,
-          lng: -0.09,
-          message: "I want to travel here!",
-          focus: false,
-          draggable: false
-        },
-    },
-    defaults: {
-        scrollWheelZoom: false
-    }
-  });
-  
 });
+
 
 // .controller('FavoritosDetailCtrl', function($scope, $stateParams, Bares) {
 //   $scope.bar = Bares.get($stateParams.barId);
