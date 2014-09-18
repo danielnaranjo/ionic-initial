@@ -26,42 +26,7 @@
 
     <script src="js/jquery-1.8.2.min.js"></script>
     <!-- google maps javascript -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&sensor=true"></script> -->
-    <!-- <script type="text/javascript" src="http://l2.io/ip.js?var=myip"></script> -->
-
-    <script>
-      var myip, Pais, Ciudad, dip;
-      function WhereAmI(x) {
-        $.getJSON('http://www.freegeoip.net/json/', function(location) {
-          Ciudad=location.city;
-          Pais=location.country_name;
-          dip=location.ip;
-          console.log(x+' '+Pais +' '+ Ciudad);
-          //$('body').attr("ng-init", "Ciudad='"+Ciudad+"';Pais='"+Pais+"';dip='"+dip+"';");
-        });
-        return Ciudad, Pais, dip;
-      }
-    $(document).ready(function(){
-//
-      if (!navigator.geolocation) {
-          console.log('Geolocation is not available');
-      } else {
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          var Lat = pos.coords.latitude;
-          var Lon = pos.coords.longitude;
-          //console.log(Lat+','+Lon);
-        });
-      } 
-      if (!sessionStorage['geo']) {
-        sessionStorage['geo'] = "40.4378271,-3.6795367|Madrid|Madrid|Espana";
-      } else {
-        //WhereAmI(myip);
-        sessionStorage['geo'] = "-8,-66|Caracas|Distrito Capital|Venezuela";
-      }
-//
-    //console.log('Actual: '+sessionStorage.getItem('geo'));
-    });
-    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&sensor=true"></script>
 
   </head>
   <body ng-app="starter" animation="slide-left-right-ios7">

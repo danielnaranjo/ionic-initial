@@ -12,7 +12,7 @@
             {{bar.address}}<br/>
             <span ng-show="bar.phone" ng-href="tel:{{bar.phone}}">Tel. {{bar.phone}}</span>
           </p>
-          <p class="right"><i class="icon ion-location" ng-show="bar.gps"></i> {{bar.gps}} </p>
+          <p class="right"><i class="icon ion-location assertive" ng-show="bar.location"></i> {{bar.location|distancia:mygeo}}</p>
         </div>
       </div>
       <div class="row responsive-sms">
@@ -43,7 +43,7 @@
               <li>{{menu.dessert}}</li>
             </div>
             <div class="item item-divider">
-              {{menu.price | number:2 | currency:"EU "}}
+              {{menu.price | number:2}}&euro;
             </div>
           </div>
         </div>

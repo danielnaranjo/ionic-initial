@@ -11,17 +11,26 @@ angular.module('starter.filters', [])
     return range;
 	};
 })
+.filter("maxLength", function(){
+    return function(text,max){
+        if(text != null){
+            if(text.length > max){
+                return text.substring(0,max) + "...";
+            }
+        }
+    };
+})
 //;
 .filter('distancia', function(){
-	return function(input){
-		//console.log(input);
-		var posicion=input.split(',');
-		// Inicializo variables
-		var Lat1 = "",Lon1 = "",Lat2 = "",Lon2 = "",metros = "",miubicacion=[];
+	return function(input,gps){
+		var posicion=input.split(','); // OK
+		var coords=gps.split(','); // OK
 		// String a Numero
 		Lat1=parseFloat(posicion[0]);
 		Lon1=parseFloat(posicion[1]);
-		//console.log('** '+myLat+','+myLon); //OK!
+		Lat2=parseFloat(coords[0]);
+		Lon2=parseFloat(coords[1]);
+		//console.log('** '+Lat1+','+Lon1+','+coords[0]+','+coords[1]); //OK!
 		function calculateDistance(lat1, lon1, lat2, lon2) {
 			var R = 6371; // km
 			var dLat = (lat2-lat1).toRad();
@@ -34,41 +43,9 @@ angular.module('starter.filters', [])
 		Number.prototype.toRad = function() {
 			return this * Math.PI / 180;
 		};
-		// if (navigator.geolocation) {
-		// 	navigator.geolocation.getCurrentPosition(function(position){
-		// 		Lat2 = position.coords.latitude;
-		// 		Lon2 = position.coords.longitude;
-		// 	});
-		// } else {
-		// 	console.log("Geolocation failed.");
-		// }
-
-		function showPosition(position) {
-			miubicacion[0] = position.coords.latitude;
-			miubicacion[1] = position.coords.longitude;
-			//console.log("*"+miubicacion[0]+','+miubicacion[1]);
-			//alert(miubicacion[0]+','+miubicacion[1]);
-			return miubicacion[0],miubicacion[1];
-		}
-		function onError(){
-			console.log("Geolocation failed.");
-		}
-
-		//function checkPosition() {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(showPosition, onError);
-				console.log(Lon1+","+Lat1+","+miubicacion[0]);
-			} else {
-				onError();
-			}
-		//}
-		//var distancia=checkPosition();
-
-		//console.log(Lon1+","+Lat1+","+miubicacion);
-		metros=calculateDistance(parseFloat(Lon2),parseFloat(Lat2),Lon1,Lat1);
-		//console.log(metros+","+Lon1+","+Lat1+","+Lon2+","+Lat2+" metros")
-		return metros+" metros";
-		//return metros+" metros";
+		metros=parseInt(calculateDistance(Lon2,Lat2,Lon1,Lat1)); // OK
+		//console.log(metros);
+		return metros+"  mts";		
 //
 	};
 });

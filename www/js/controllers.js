@@ -1,14 +1,57 @@
-angular.module('starter.controllers', ['ionic',])
+angular.module('starter.controllers', ['ionic'])
 
-.controller('DashCtrl', function($scope, $ionicLoading, $ionicPopup, $http, Bares){
-  //$scope.data = {};
+.controller('DashCtrl', function($scope, $ionicPopup, $ionicLoading, $http, Bares, MyService){
+  $scope.data = {};
   $scope.bares = Bares.all();
-  // $scope.ubicacion = function(x,y,z) {
-  //   console.log($scope.x+','+$scope.y+','+$scope.z);
-  // };
   $scope.clearSearch = function() {
-    $scope.query = '';
+    $scope.data.query = '';
   };
+  /* Load location via IP */
+  var myURL="http://www.freegeoip.net/json/";  //OK!
+  $http({method: "GET", url: myURL}).
+      success(function(data) {
+        $scope.dip=data.ip;
+        $scope.country=data.country_name;
+        $scope.city=data.city;
+        $scope.zipcode=data.zipcode;
+        $scope.geo=data.latitude+','+data.longitude;
+        //$scope.navTitle = data.city +""+data.country_name;
+        console.log("Success!");
+      }).
+      error(function(error) {
+        console.log("Request failed "+error.message);
+    });
+  /* Show popup while loading geolocation */
+  $scope.navTitle = "Cargando ubicacion..";
+  /* popup */
+  $scope.loading = $ionicLoading.show({
+    template: 'Por favor, espere..'
+  });
+  /* Run geolocation API */
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    var coords = $scope.currentLocation = [pos.coords.longitude, pos.coords.latitude];
+    console.log(coords);
+    $scope.mygeo=pos.coords.latitude+','+pos.coords.longitude;
+    /* Paso data entre controladores */
+    MyService.data.mygeo = $scope.mygeo;
+    /* Cambio el titulo */
+    $scope.navTitle = "Estas cerca de "+parseInt(coords[0])+","+parseInt(coords[1]);
+    /* Muestro titulo segun ciudad/pais */
+    if($scope.city!=="") {
+      $scope.navTitle = "Locales en "+$scope.city;
+    } else {
+      $scope.navTitle = "Cercanos en "+$scope.country;
+    }
+    $ionicLoading.hide();
+  }, function(error) {
+    $ionicPopup.alert({
+      title: 'Error: No ha sido posible ubicarte. ' + error.message
+    }).then(function(res) {
+      $ionicLoading.hide();
+      // not working
+    });
+  });
+
 /*
 $http.get('http://localhost:8888/api/locals')
   .success(function(data){
@@ -19,19 +62,18 @@ $http.get('http://localhost:8888/api/locals')
   });
 */
 
+/*
 $scope.loading = $ionicLoading.show({
     content: 'Getting current location...',
     showBackdrop: false
   });
   navigator.geolocation.getCurrentPosition(function(pos) {
     var coords = $scope.currentLocation = [pos.coords.longitude, pos.coords.latitude];
-    //$scope.locations = LocationsService.allSync();
-    //$scope.sortLoc = SettingsService.get('sortLocBy');
     console.log(coords);
     $ionicLoading.hide();
   }, function(error) {
     $ionicPopup.alert({
-      title: 'Unable to get location: ' + error.code
+      title: 'Unable to get location: ' + error.message
     }).then(function(res) {
       $ionicLoading.hide();
       // not working
@@ -68,18 +110,21 @@ $scope.loading = $ionicLoading.show({
     start = _startPoint || start;
 
     var end = {
-      longitude: _item.gps.lon,
-      latitude: _item.gps.lat
+      longitude: _item.lng,
+      latitude: _item.lat
     };
 
     var num = radiansTo(start, end) * 3958.8;
-    return Math.round(num * 100) / 100 +" mts";
+    console.log(Math.round(num * 100) / 100);
+    return Math.round(num * 100) / 100;
   };
-
+*/
 }) // End DashCtrl
 
-.controller('DetailCtrl', function($scope, $http, $ionicActionSheet, $ionicPopup, $stateParams, Bares) {
+.controller('DetailCtrl', function($scope, $http, $ionicActionSheet, $ionicPopup, $stateParams, Bares, MyService) {
   $scope.bar = Bares.get($stateParams.barId);
+  /* Viene de DashCtrl */
+  $scope.mygeo = MyService.data.mygeo;
   $scope.showActionsheet = function() {
     $ionicActionSheet.show({
       titleText: '<h4>Compartir</h4>',
@@ -106,23 +151,41 @@ $scope.loading = $ionicLoading.show({
    }; // Llamar
 })
 
-.controller('MapaCtrl', function($scope, $http, $ionicPopup, $ionicLoading, $compile, Bares) {
+.controller('MapaCtrl', function($scope, $http, $ionicPopup, $ionicLoading, $compile, Bares, MyService) {
   $scope.bares = Bares.all();
+  /* Viene de DashCtrl */
+  $scope.mygeo = MyService.data.mygeo;
+  
+
+  /* Consulto si hay valores, sino mando por defecto a Madrid
+  if($scope.mygeo!=="") { //10.500,-66.900
+    console.log('# '+$scope.mygeo);
+    var coords=$scope.mygeo.split(','); // OK
+    var myLatlng = new google.maps.LatLng(coords[0],coords[1]);
+  } else {
+    var myLatlng = new google.maps.LatLng(10.500,-66.900);
+  }
+ */  
+
   //http://codepen.io/ionic/pen/uzngt/
-  //console.log('Actual: '+Lat+','+Lon)
+  //console.log('Actual: '+coords[0]+','+coords[1]);
       function initialize() {
         var myLatlng = new google.maps.LatLng(40.4378271,-3.6795367);
         var mapOptions = {
           center: myLatlng,
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          zoom: 10
         };
         var map = new google.maps.Map(document.getElementById("map"),
             mapOptions);
         
         //Marker + infowindow + angularjs compiled ng-click
-        var contentString = "<div>"+myLatlng+"</div>";
-        var compiled = $compile(contentString)($scope);
+        //var contentString = "<div>Estas ubicado en "+$scope.mygeo+"</div>";
+        var contentString = "<div><p><strong>Te ubicamos en España</strong>, para mejorar tu experiencia<br>";
+        contentString+= "debes hacer clic en el boton de Localización:</p>";
+        contentString+= "<p align=\"center\"><button class=\"button button-icon icon ion-compass\" ng-click=\"centerOnMe()\" ></button>";
+        contentString+= "</p></div>";
+        compiled = $compile(contentString)($scope);
 
         var infowindow = new google.maps.InfoWindow({
           content: compiled[0]
@@ -131,7 +194,7 @@ $scope.loading = $ionicLoading.show({
         var marker = new google.maps.Marker({
           position: myLatlng,
           map: map,
-          title: 'Uluru (Ayers Rock)'
+          title: 'Ubicación'
         });
 
         google.maps.event.addListener(marker, 'click', function() {
@@ -154,7 +217,7 @@ $scope.loading = $ionicLoading.show({
 
         navigator.geolocation.getCurrentPosition(function(pos) {
           $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-          //$scope.loading.hide();
+          $ionicLoading.hide();
           //console.log(pos); 
           var lat = pos.coords.latitude;
           var lon = pos.coords.longitude;

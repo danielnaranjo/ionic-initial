@@ -3,8 +3,11 @@ angular.module('starter.services', [])
 /**
  * A simple example service that returns some data.
  */
-
-
+.factory("MyService", function() {
+  return {
+    data: {}
+  };
+})
 .factory('Bares', function() {
   var bares = [{
       id: 0,
@@ -21,10 +24,7 @@ angular.module('starter.services', [])
       twitter: "@loultimoenlaweb",
       facebook: "faceboook.com/loultimoenlaweb",
       logo:"img/img3.jpg",
-      gps: [{
-        lon:-63.700,
-        lat:-11.500
-      }],
+      location: "-11.500,-63.700",
       business: "De 19:00 a 24:00",
       payments: "Visa,MC,Amex,Ticket",
       range: 2,
@@ -68,10 +68,7 @@ angular.module('starter.services', [])
       twitter: "@loultimoenlaweb",
       facebook: "faceboook.com/loultimoenlaweb",
       logo:"img/img2.jpg",
-      gps: [{
-        lon:-11,
-        lat:8
-      }],
+      location: "8,-11",
       business: "De 19:00 a 24:00",
       payments: "Visa,MC,Amex,Ticket",
       range: 5,
@@ -98,7 +95,7 @@ angular.module('starter.services', [])
       // Simple index lookup
       return bares[barId];
     }
-  }
+  };
 });
 
 /*
