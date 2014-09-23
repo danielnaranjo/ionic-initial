@@ -14,7 +14,7 @@ angular.module('starter.filters', [])
 // not working as suppost to 
 .filter("maxLength", function(){
     return function(text,max){
-        if(text != null){
+        if(text !== null){
             if(text.length > max){
                 return text.substring(0,max) + "...";
             }
@@ -53,7 +53,6 @@ angular.module('starter.filters', [])
 		};
 		metros=parseInt(calculateDistance(Lon2,Lat2,Lon1,Lat1)); // OK
 		//console.log(metros);
-		return metros+"  mts";		
-//
+		return metros+" mts";
 	};
 });

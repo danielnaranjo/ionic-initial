@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic','leaflet-directive'])
+angular.module('starter.controllers', ['ionic','leaflet-directive', 'ngCordova'])
 
 .controller('DashCtrl', function($scope, $ionicPopup, $ionicLoading, $http, Bares, MyService){
   $scope.data = {};
@@ -212,8 +212,17 @@ $http.get('http://localhost:8888/api/locals')
   }; // centerOne
 })
 
-.controller('FavoritosCtrl', function($scope, Bares) {
-  $scope.bares = Bares.all();
+.controller('FavoritosCtrl', function($scope, $http, $ionicPopup, $ionicLoading) {
+    /* popup */
+    $scope.loading = $ionicLoading.show({
+      template: 'Por favor, espere..'
+    });
+    var app = this;
+    $http.get("http://servidor.web.ve/api/locales")
+      .success(function(data) {
+        app.locales = data;
+        $ionicLoading.hide();
+      });
 });
 
 

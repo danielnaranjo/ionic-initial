@@ -8,6 +8,25 @@ angular.module('starter.services', [])
     data: {}
   };
 })
+
+.factory('Bares', function($http) {
+  var app = this;
+  $http.get("http://servidor.web.ve/api/locales")
+  //$http.get("http://servidor.web.ve/admin/json2.php")
+    .success(function(data){
+      app.bares=data;
+      console.log('#'+app.bares.name); //OK
+    });
+  return {
+    all: function() {
+      return app.bares;
+    },
+    get: function(barId) {
+      return app.bares[barId];
+    }
+  };
+});
+/*
 .factory('Bares', function() {
   var bares = [{
       id: 0,
@@ -97,24 +116,5 @@ angular.module('starter.services', [])
     }
   };
 });
-
-/*
-.factory('Bares', function($http) {
-  var baseURL ="http://localhost:8888/api/locals";
-  $http.get(baseURL)
-    .success(function(data) {
-      $scope.bares = data;
-    })
-    .error(function(error){
-       console.log(error);
-    });
-  return {
-    all: function() {
-      return bares;
-    },
-    get: function(barId) {
-      return bares[barId];
-    }
-  };
-});
 */
+

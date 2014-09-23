@@ -1,4 +1,4 @@
-  <ion-view  title="{{navTitle}}">
+  <ion-view  title="{{navTitle}}" ng-controller="DashCtrl as app">
 
   <ion-header-bar 
       id="header"
@@ -30,7 +30,7 @@
       </ion-refresher> -->
 
       <ion-list>
-        <ion-item ng-repeat="bar in bares | filter:data.query | orderBy:location" type="item-text-wrap" ng-href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" >
+        <ion-item ng-repeat="bar in app.bares | filter:data.query | orderBy:location" type="item-text-wrap" ng-href="#/tab/bar/{{bar.id}}" class="item-thumbnail-left" >
           <img ng-src="{{bar.logo}}" ng-show="bar.logo">
           <h3 style="margin:-5px 0 0 0" class="balanced">
             {{bar.name}}<br/>
